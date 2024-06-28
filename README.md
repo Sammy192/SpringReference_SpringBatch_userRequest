@@ -13,7 +13,9 @@ Outro DB 'app' responsável para gravar os dados processados pela aplicação.
 ## Techs utilizadas.
 
 Docker para subir container de MySQL e PhpAdmin
+
 Projeto de api pronto para consumo, pasta clients.
+
 Postman
 
 ## oBjetivos
