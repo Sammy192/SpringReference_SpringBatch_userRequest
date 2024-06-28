@@ -1,0 +1,44 @@
+version: "3.7"
+services:
+  # ===============================================================================
+  # MYSQL SERVER
+  # ===============================================================================
+  mysql-docker:
+    image: mysql:8.0
+    container_name: mysql-docker
+    environment:
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234567
+      MYSQL_ROOT_PASSWORD: 1234567
+    ports:
+      - 3307:3306
+    volumes:
+      - ./.data/mysqlSpri/data:/var/lib/mysqlSpri
+    networks:
+      - dev-network-spring
+  # ===============================================================================
+  # PHPMYADMIN
+  # ===============================================================================
+  phpmyadmin-docker:
+    image: phpmyadmin/phpmyadmin
+    container_name: dev-phpmyadmin
+    links:
+      - mysql-docker
+    environment:
+      PMA_HOST: mysql-docker
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 5050:80
+    depends_on:
+      - mysql-docker
+    networks:
+      - dev-network-spring
+# ===============================================================================
+# REDE
+# ===============================================================================
+networks:
+  dev-network-spring:
+    driver: bridge
